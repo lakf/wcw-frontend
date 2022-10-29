@@ -28,7 +28,7 @@ window.onload = function(){
 
 function intialize() {
 
-    fetch('http://127.0.0.1:5000/loadGame')
+    fetch('https://worldcupwordle.herokuapp.com/loadGame')
     .then(function(response) {
         return response.json();
     }).then(function(data) {
@@ -165,7 +165,7 @@ function update() {
     //}
     
     //start processing guess
-    var url = 'http://127.0.0.1:5000/check?guess='
+    var url = 'https://worldcupwordle.herokuapp.com/check?guess='
     url = url + guess;
     fetch(url)
     .then(function(response) {
