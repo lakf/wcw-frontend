@@ -141,6 +141,7 @@ function processInput(e) {
     if (!gameOver && row == height) {
         gameOver = true;
         document.getElementById("answer").innerText = word;
+        shareResult();
     }
 }
 
@@ -216,6 +217,7 @@ function update() {
 
         if (correct == width) {
             gameOver = true;
+            shareResult();
         }
     }
 
@@ -263,3 +265,59 @@ function updateAttributes(nationality_in, position_in, league_in, club_in) {
         document.getElementById("Club").innerText = club_in;
     }
 }
+
+//function to be called after game end (i.e. after win OR loss)
+//will get rid of the entire keyboard and replace with a share button
+//pressing share button will copy emoji result text to user clipboard
+function shareResult() {
+    //logic behind emoji result text
+    emojiResult = "";
+    //make a string with all the current tile colours (and new line gaps?)
+    tiles = document.querySelectorAll('.tile');
+    console.log(tiles);
+    //convert that string to emojis
+    tiles.forEach(tile => {
+        if (tile.classList.contains('absent')) {
+            emojiResult += '⬜️';
+        } else if (tile.classList.contains('present')) {
+            emojiResult += '🟨';
+        } else if (tile.classList.contains('correct')) {
+            emojiResult += '🟩';
+        }
+    })
+    //put new line character in
+    emjRes = partition(emojiResult, width).join('\n');
+    console.log("emjRes: " + emjRes);
+    
+
+    //get rid of entire keyboard
+    const keyboardRows = document.querySelectorAll('.keyboard-row');
+    keyboardRows.forEach(row => {
+        row.remove();
+    })
+
+    //add share button
+    let btn = document.createElement("button");
+    btn.innerHTML = "Share Result";
+    btn.classList = "button-54";
+    btn.onclick = function () {
+        navigator.clipboard.writeText(
+            "World Cup Wordle Score" + " #WCW" + '\n' + '\n' +
+            emjRes + '\n' + '\n' +
+            "Play worldcupwordle.vercel.app" + '\n').then(function(x) {
+            alert("Copied result to clipboard!");
+        })
+        
+    }
+    document.body.appendChild(btn);
+}
+
+function partition(str, n) {
+    var arr = [];
+    n = 2*n;
+    var i, l;
+    for(i = 0, l = str.length; i < l; i += n) {
+       arr.push(str.substr(i, n));
+    }
+    return arr;
+};
