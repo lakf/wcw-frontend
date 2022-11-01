@@ -251,13 +251,13 @@ function update() {
 
 function updateAttributes(nationality_in, position_in, league_in, club_in) {
     if (nationality_in != false && position_in != undefined) {
-        document.getElementById("Nationality").innerText = nationality_in;
+        document.getElementById("Nationality").innerText = nationality_in + " NATIONALITY";
     }
     if (position_in != false && position_in != undefined) {
         document.getElementById("Position").innerText = position_in;
     }
     if (league_in != false && position_in != undefined) {
-        document.getElementById("League").innerText = league_in;
+        document.getElementById("League").innerText = league_in + " LEAGUE";
     }
     if (club_in != false && position_in != undefined) {
         document.getElementById("Club").innerText = club_in;
