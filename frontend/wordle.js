@@ -100,6 +100,11 @@ function intialize() {
         }
         document.body.appendChild(keyboardRow);
     }
+
+    //add a space at the bottom of the keyboard
+    let space = document.createElement("space");
+    space.classList.add("space");
+    document.body.appendChild(space);
     
 
     // Listen for Key Press
